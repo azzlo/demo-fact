@@ -25,7 +25,9 @@ class BillsController < ApplicationController
   # POST /bills
   # POST /bills.json
   def create
-    @bill = Bill.new(bill_params)
+    @bill = current_user.bills.build(bill_params)
+    @bill.do_payment_at = nil
+    @bill.paid_at = nil
 
     respond_to do |format|
       if @bill.save

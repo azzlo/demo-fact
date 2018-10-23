@@ -5,11 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>File</th>
-      <th>Do payment at</th>
-      <th>Details</th>
-      <th>Paid at</th>
-      <th>User</th>
+      <th>Registro</th>
+      <th>Cliente</th>
+      <th>Realizar pago</th>
+      <th>Detalles</th>
+      <!-- <th>Paid at</th> -->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,13 +17,13 @@
   <tbody>
     <% @bills.each do |bill| %>
       <tr>
-        <td><%= bill.file %></td>
+        <td><%= bill.id %></td>
+        <td><%= bill.user.name %></td>
         <td><%= bill.do_payment_at %></td>
         <td><%= bill.details %></td>
-        <td><%= bill.paid_at %></td>
-        <td><%= bill.user %></td>
+        <!-- <td><%#= bill.paid_at %></td> -->
         <td><%= link_to 'Show', bill %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
+        <td><%= link_to 'Edit', edit_bill_path(bill) if current_user.admin%></td>
         <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Bill', new_bill_path %>
+<%= link_to 'Nueva Factura', new_bill_path %>

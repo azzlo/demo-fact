@@ -11,32 +11,51 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :file %>
-    <%= form.text_field :file %>
-  </div>
 
-  <div class="field">
-    <%= form.label :do_payment_at %>
-    <%= form.date_select :do_payment_at %>
-  </div>
+  <% if current_user.admin %>
 
-  <div class="field">
-    <%= form.label :details %>
-    <%= form.text_area :details %>
-  </div>
+    <div class="field">
+      <%= form.label :do_payment_at, 'Hacer el pago el' %>
+      <%= form.date_select :do_payment_at %>
+    </div>
 
-  <div class="field">
-    <%= form.label :paid_at %>
-    <%= form.date_select :paid_at %>
-  </div>
+    <div class="field">
+      <%= form.label :details, 'Mas detalles' %>
+      <%= form.text_area :details %>
+    </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
+    <!-- <div class="field">
+      <%#= form.label :paid_at %>
+      <%#= form.date_select :paid_at %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <div class="field">
+      <%#= form.label :user_id %>
+      <%#= form.text_field :user_id %>
+    </div> -->
+  <% end %>
+
+  <% if current_user.admin %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+
+  <% unless current_user.admin  %>
+    <div class="field">
+      <%= form.label :file, 'Archivo' %>
+      <%= form.file_field :file %>
+    </div>
+  <% else %>
+    <p>
+      <strong>File:</strong>
+      <%= image_tag @bill.file %>
+    </p>
+  <% end %>
+
+  <% unless current_user.admin %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>
