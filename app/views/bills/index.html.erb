@@ -22,9 +22,9 @@
         <td><%= bill.do_payment_at %></td>
         <td><%= bill.details %></td>
         <!-- <td><%#= bill.paid_at %></td> -->
-        <td><%= link_to 'Show', bill %></td>
-        <td><%= link_to 'Edit', edit_bill_path(bill) if current_user.admin%></td>
-        <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Ver', bill %></td>
+        <td><%= link_to 'Editar', edit_bill_path(bill) if current_user.admin%></td>
+        <td><%= link_to 'Eliminar', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
