@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  file: MyString
+  do_payment_at: 2018-10-23
+  details: MyText
+  paid_at: 2018-10-23
+  user: one
+
+two:
+  file: MyString
+  do_payment_at: 2018-10-23
+  details: MyText
+  paid_at: 2018-10-23
+  user: two

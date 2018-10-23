@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.first_or_create(email: 'admin@admin') do |user|
+  user.email = 'admin@admin'
+  user.password = '1234567890'
+  user.password_confirmation = '1234567890'
+  user.save!
+end
