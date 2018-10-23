@@ -15,6 +15,7 @@ User.first_or_create(email: 'admin@admin') do |user|
 end
 
 User.where(email: 'user@user').first_or_create do |user|
+  user.name = "Ferreteria-X"
   user.email = 'user@user'
   user.password = '1234567890'
   user.password_confirmation = '1234567890'

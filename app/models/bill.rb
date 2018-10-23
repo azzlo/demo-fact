@@ -8,10 +8,10 @@ class Bill < ApplicationRecord
     if file.attached?
       if file.blob.byte_size > 1000000
         file.purge
-        errors[:base] << 'Too big'
+        errors[:base] << 'Archivo demasiado grande'
       elsif !file.blob.content_type.starts_with?('image/')
         file.purge
-        errors[:base] << 'Wrong format'
+        errors[:base] << 'Formato incorrecto. Debes elegir una imagen'
       end
     else
       errors[:base] << 'Debes seleccionar un archivo PDF o Imágen'
