@@ -11,32 +11,60 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :file, 'Archivo PDF' %>
-    <%= form.file_field :file, accept: 'application/pdf' %>
-  </div>
+  <% if current_user.admin %>
 
-  <div class="field">
-    <%= form.label :do_payment_at, 'Hacer pago el' %>
-    <%= form.date_select :do_payment_at, class: 'form-control' %>
-  </div>
+    <div class="field">
+      <%= form.label :do_payment_at, 'Hacer el pago el' %>
+      <%= form.date_select :do_payment_at, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :details, 'detalles' %>
-    <%= form.text_area :details %>
-  </div>
+    <div class="field">
+      <%= form.label :details, 'Mas detalles' %>
+      <%= form.text_area :details, class: 'form-control' %>
+    </div>
 
-  <div class="field">
-    <%= form.label :paid_at %>
-    <%= form.date_select :paid_at %>
-  </div>
+    <!-- <div class="field">
+      <%#= form.label :paid_at %>
+      <%#= form.date_select :paid_at %>
+    </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
+    <div class="field">
+      <%#= form.label :user_id %>
+      <%#= form.text_field :user_id %>
+    </div> -->
+  <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <% if current_user.admin %>
+    <br>
+    <div class="actions">
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <% unless current_user.admin  %>
+    <% if bill.do_payment_at.present? %>
+      <div class="field">
+      <%= form.label :paid_at, 'Pagada el' %>
+      <%= form.date_select :paid_at, class: 'form-control' %>
+    </div>
+    <% else %>
+      <div class="field">
+        <%= form.label :file, 'Archivo' %>
+        <%= form.file_field :file, accept: 'application/pdf' %>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- <p>
+      <strong>File:</strong>
+      <%#= image_tag @bill.file %>
+    </p> -->
+  <% end %>
+
+  <br>
+  <% unless current_user.admin %>
+    <br>
+    <div class="actions">
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 <% end %>

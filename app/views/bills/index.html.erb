@@ -15,7 +15,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Archivo</th>
+        <th>Subida el</th>
         <th>Hacer pago el</th>
         <th>Detalles</th>
         <th>Pagado el</th>
@@ -27,18 +27,36 @@
     <tbody>
       <% @bills.each do |bill| %>
         <tr>
-          <td><%= bill.file %></td>
-          <td><%= bill.do_payment_at %></td>
+          <td><%= bill.created_at %></td>
+          <td>
+            <% if bill.do_payment_at.present? %>
+              <span class="badge badge-info"><%= bill.do_payment_at %></span>    
+            <% else %>
+              <span class="badge badge-secondary">Pendiente</span>
+            <% end %>
+          </td>
           <td><%= bill.details %></td>
-          <td><%= bill.paid_at %></td>
-          <td><%= bill.user %></td>
-          <td><%= link_to 'Show', bill %></td>
-          <td><%= link_to 'Edit', edit_bill_path(bill) %></td>
-          <td><%= link_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <% if bill.paid_at.present? %>
+              <%= bill.paid_at %>
+            <% else %>
+              <span class="badge badge-warning">No pagada</span>
+            <% end %>
+          </td>
+          <td><%= bill.user.email %></td>
+            <td><%= link_to 'PDF', bill.file, target: '_blank' %></td>
+            <!-- <td><%#= link_to 'Show', bill %></td> -->
+
+          <% if current_user.admin? %>
+            <td><%= link_to 'Revisar', edit_bill_path(bill) %></td>
+          <% else %>
+            <td><%= link_to 'Registrar pago', edit_bill_path(bill) if bill.do_payment_at.present? %></td>
+          <% end %>
+
+          <td><%= link_to 'Eliminar', bill, method: :delete, data: { confirm: 'Are you sure?' }  if current_user.admin == false && !bill.do_payment_at.present? %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
   <br>
 </div>
