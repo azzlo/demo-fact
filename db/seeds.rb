@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.first_or_create(email: 'admin@admin') do |user|
+  user.name = 'Administrador'
   user.email = 'admin@admin'
   user.password = '1234567890'
   user.password_confirmation = '1234567890'
