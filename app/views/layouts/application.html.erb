@@ -10,6 +10,21 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= render 'partials/navbar' %>
+    <% end %>
+    
+    <% if notice %>
+      <div class="alert alert-info text-center" role="alert">
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-warning text-center" role="alert">
+        <%= alert %>
+      </div>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>

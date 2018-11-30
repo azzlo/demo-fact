@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.where(admin: true)
+  end
+
+  def clients
+    @users = User.where(admin: false)
   end
 
   # GET /users/1
@@ -14,7 +18,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @user = User.new(admin: true)
+  end
+
+  def new_client
+    @user = User.new(admin: false)
   end
 
   # GET /users/1/edit
@@ -28,10 +36,16 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { 
+          redirect_to users_url, notice: 'El usuario fue registrado exitosamente.' if @user.admin?
+          redirect_to clients_url, notice: 'El cliente fue registrado exitosamente.'
+        }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html { 
+          render :new if @user.admin?
+          render :new_client
+        }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +83,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :admin)
+      params.require(:user).permit(:name, :admin, :email, :password, :password_confirmation )
     end
 end

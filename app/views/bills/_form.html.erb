@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :file %>
-    <%= form.text_field :file %>
+    <%= form.label :file, 'Archivo PDF' %>
+    <%= form.file_field :file, accept: 'application/pdf' %>
   </div>
 
   <div class="field">
-    <%= form.label :do_payment_at %>
-    <%= form.date_select :do_payment_at %>
+    <%= form.label :do_payment_at, 'Hacer pago el' %>
+    <%= form.date_select :do_payment_at, class: 'form-control' %>
   </div>
 
   <div class="field">
-    <%= form.label :details %>
+    <%= form.label :details, 'detalles' %>
     <%= form.text_area :details %>
   </div>
 
